@@ -55,13 +55,11 @@ const createShares = (secretArr, { n = 4 } = {}) => {
   for (const sec of secretArr) {
     secret = Number(sec);
     const xList = [];
-    let index = 0;
 
     for (let i = 0; i < n; i++) {
       const x = getRandom({ min: 1, max: 255, notIn: xList });
       xList.push(x);
-      shares[index].push([x, getY(x, m, secret)]);
-      index++;
+      shares[i].push([x, getY(x, m, secret)]);
     }
   }
 
