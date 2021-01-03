@@ -1,0 +1,22 @@
+{
+  "name": "shamir-secret",
+  "version": "1.0.0",
+  "description": "This is a CLI application which implements the Shamir's Secret Sharing Algorithm.",
+  "main": "index.js",
+  "scripts": {
+    "generate": "node index.js generate",
+    "combine": "node index.js combine",
+    "help": "node index.js help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irshadjsr21/Shamir-Secret.git"
+  },
+  "keywords": [],
+  "author": "Md. Irshad Ansari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irshadjsr21/Shamir-Secret/issues"
+  },
+  "homepage": "https://github.com/irshadjsr21/Shamir-Secret#readme"
+}
