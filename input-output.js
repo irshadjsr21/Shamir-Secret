@@ -11,12 +11,12 @@ const writeFile = (fileName, content) =>
 
 /**
  * @description
- * Reads the `input.txt` file and returns the secret array.
+ * Reads the `input-secret.txt` file and returns the secret array.
  *
  * @returns {Array} The secret array
  */
 const getSecretInputData = async () => {
-  const inputFileContents = await readFile("input.txt");
+  const inputFileContents = await readFile("input-secret.txt");
   const inputArr = inputFileContents.split("\n");
 
   return inputArr.filter(
@@ -26,12 +26,12 @@ const getSecretInputData = async () => {
 
 /**
  * @description
- * Reads the `input.txt` file and returns the shares array.
+ * Reads the `input-shares.txt` file and returns the shares array.
  *
  * @returns {Array} The shares array
  */
 const getShareInputData = async () => {
-  const inputFileContents = await readFile("input.txt");
+  const inputFileContents = await readFile("input-shares.txt");
   const inputArr = inputFileContents.split("\n\n");
   const shares = [];
 
@@ -53,7 +53,7 @@ const getShareInputData = async () => {
 
 /**
  * @description
- * Write the `out` array to the `shares.txt` file.
+ * Write the `out` array to the `output-shares.txt` file.
  *
  * @param {Array} out Shares array
  */
@@ -65,19 +65,19 @@ const writeShareOutput = async out => {
     data += "\n\n";
   }
 
-  writeFile("shares.txt", data);
+  writeFile("output-shares.txt", data);
 };
 
 /**
  * @description
- * Write the `out` array to the `secret.txt` file.
+ * Write the `out` array to the `output-secret.txt` file.
  *
  * @param {Array} out Secret array
  */
 const writeSecretOutput = async out => {
   const data = out.join("\n");
 
-  writeFile("secret.txt", data);
+  writeFile("output-secret.txt", data);
 };
 
 module.exports = {

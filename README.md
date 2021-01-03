@@ -6,7 +6,7 @@ This is a CLI application which implements the Shamir's Secret Sharing Algorithm
 
 ### To share a secret
 
-- Edit the `input.txt` file and add the numbers you want to share (seperated by a new line). Example:
+- Edit the `input-secret.txt` file and add the numbers you want to share (seperated by a new line). Example:
 
   ```
   546
@@ -20,11 +20,11 @@ This is a CLI application which implements the Shamir's Secret Sharing Algorithm
 
 - Run the command to generate the shares. `npm run generate`
 
-- The program will create a file `shares.txt` which will contain all `4` shares which you can share to 4 different people.
+- The program will create a file `output-shares.txt` which will contain all `4` shares which you can share to 4 different people.
 
 ### To combine the shares
 
-- Edit the `input.txt` file and add the shares you want to combine (seperated by 2 new lines). Example:
+- Edit the `input-share.txt` file and add the shares you want to combine (seperated by 2 new lines). Example:
 
   ```
   54, 661
@@ -42,4 +42,4 @@ This is a CLI application which implements the Shamir's Secret Sharing Algorithm
 
 - Run the command to generate the secret. `npm run combine`
 
-- The program will create a file `shares.txt` which will contain all `4` shares which you can share to 4 different people.
+- The program will create a file `output-secret.txt` which will contain the secret numbers.

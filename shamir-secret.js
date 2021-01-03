@@ -11,10 +11,17 @@
  * @param {Object} options Options for generating random number.
  * @param {Number} options.min The minimum limit
  * @param {Number} options.max The maximum limit
+ * @param {Array<Number>} options.notIn A random number will be generated which is not in this array
  * @returns {Number} A random number
-*/
-const getRandom = ({ min = -100, max = 100 } = {}) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+ */
+const getRandom = ({ min = -100, max = 100, notIn = [] } = {}) => {
+  let random;
+
+  do {
+    random = Math.floor(Math.random() * (max - min + 1)) + min;
+  } while (notIn.includes(random));
+
+  return random;
 };
 
 /**
@@ -25,7 +32,7 @@ const getRandom = ({ min = -100, max = 100 } = {}) => {
  * @param {Number} m Slope of the line
  * @param {Number} c The y intercept of the line.
  * @returns {Number} `y` of the point
-*/
+ */
 const getY = (x, m, c) => {
   return m * x + c;
 };
@@ -38,20 +45,26 @@ const getY = (x, m, c) => {
  * @param {Object} options Option for creating the share
  * @param {Number} options.n The number of share to be created
  * @returns {Array} The shares array
-*/
+ */
 const createShares = (secretArr, { n = 4 } = {}) => {
   const m = getRandom();
   const shares = [];
-  for (let i = 0; i < n; i++) {
-    const currentShare = []
-    for (const sec of secretArr) {
-      secret = Number(sec);
-      const x = getRandom({ min: 1, max: 255 });
-      currentShare.push([x, getY(x, m, secret)]);
-    }
+  for (let i = 0; i < n; i++) shares.push([]);
 
-    shares.push(currentShare);
+
+  for (const sec of secretArr) {
+    secret = Number(sec);
+    const xList = [];
+    let index = 0;
+
+    for (let i = 0; i < n; i++) {
+      const x = getRandom({ min: 1, max: 255, notIn: xList });
+      xList.push(x);
+      shares[index].push([x, getY(x, m, secret)]);
+      index++;
+    }
   }
+
   return shares;
 };
 
@@ -61,7 +74,7 @@ const createShares = (secretArr, { n = 4 } = {}) => {
  *
  * @param {Array} shares The shares array
  * @returns {Array} The secret array
-*/
+ */
 const getSecret = shares => {
   if (!shares || !Array.isArray(shares)) {
     throw new Error("Shares should be an array.");
@@ -72,11 +85,14 @@ const getSecret = shares => {
 
   const secretArr = [];
 
-  for (let i=0;i<shares[0].length;i++) {
+  for (let i = 0; i < shares[0].length; i++) {
     const [x1, y1] = shares[0][i];
     const [x2, y2] = shares[1][i];
     const m = (y1 - y2) / (x1 - x2);
     const c = y1 - m * x1;
+    if (isNaN(c)) {
+      console.log(x1, x2);
+    }
     secretArr.push(c);
   }
 
